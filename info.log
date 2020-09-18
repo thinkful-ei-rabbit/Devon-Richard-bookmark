@@ -6,3 +6,6 @@
 {"message":"Unauthorized request to path: /bookmark","level":"error"}
 {"message":"Unauthorized request to path: /bookmark","level":"error"}
 {"message":"Bookmark id: 4 not Found","level":"error"}
+{"message":"Unauthorized request to path: /bookmark/","level":"error"}
+{"message":"bookmarkData is not defined","level":"error"}
+{"message":"Rating not found","level":"error"}
