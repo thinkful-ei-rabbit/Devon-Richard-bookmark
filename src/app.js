@@ -11,7 +11,6 @@ const bookmarkRouter = require('./bookmark-router/bookmark-router');
 const app = express();
 
 const morganOption = NODE_ENV === 'production' ? 'tiny' : 'common';
-
 app.use(morgan(morganOption));
 app.use(helmet());
 app.use(cors());
