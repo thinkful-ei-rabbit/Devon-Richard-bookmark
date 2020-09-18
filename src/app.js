@@ -49,19 +49,19 @@ app.get('/bookmark/:id', (req, res) => {
 app.post('/bookmark', (req, res) => {
   const newbookMark = req.body;
 
-  const required = [ 'title', 'url' , 'rating'];
-  for( let key of required ) {
-      if( !req.body[key] ) {
-        return res.status(400).send(`Missing ${key} in request`);
-      }
+  const required = ['title', 'url', 'rating'];
+  for (let key of required) {
+    if (!req.body[key]) {
+      return res.status(400).send(`Missing ${key} in request`);
+    }
   }
 
-  if(!url.startsWith("http")) {
-    return res.status(400).send('URL must include "http"')
+  if (!req.body.url.startsWith('http')) {
+    return res.status(400).send('URL must include "http"');
   }
 
-  if(isNaN(rating)) {
-    return res.status(400).send('Rating must be a numeric value')
+  if (isNaN(req.body.rating)) {
+    return res.status(400).send('Rating must be a numeric value');
   }
 
   newbookMark.id = uuidv4();
@@ -71,5 +71,19 @@ app.post('/bookmark', (req, res) => {
     .location(`http://localhost:8000/bookmark/${newbookMark.id}`)
     .json(newbookMark);
 });
+
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.json(),
+  transports: [new winston.transports.File({ filename: 'info.log' })],
+});
+
+if (NODE_ENV !== 'production') {
+  logger.add(
+    new winston.transports.Console({
+      format: winston.format.simple(),
+    })
+  );
+}
 
 module.exports = app;
